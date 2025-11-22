@@ -24,9 +24,9 @@ SisterSafe eliminates the trust requirement by verifying the emergency state mat
 
 The project's objectives are centered on establishing a new paradigm for digital safety built on verifiable autonomy.
 
-- Maximize User PrivacyAchieve. zero disclosure of raw location data until the immutable ZK condition is met and verified on-chain. Aligned with the Cypherpunk principle.
-- Ensure Alert Integrity. Achieve 100% censorship resistance for the alert signal by using an L2 (Celo) to verify the ZK-Proof, ensuring the signal cannot be blocked by centralized entities. Key: Decentralization
-- Establish Trustless Network. Integrate Self Protocol to ensure the trusted contact list is cryptographically Sybil-resistant and composed of verified, unique individuals.Feminist / Public GoodsDemonstrate Cross-Chain. Key: Confidentiality
+- Maximize User PrivacyAchieve: zero disclosure of raw location data until the immutable ZK condition is met and verified on-chain. Aligned with the Cypherpunk principle.
+- Ensure Alert Integrity: Achieve 100% censorship resistance for the alert signal by using an L2 (Celo) to verify the ZK-Proof, ensuring the signal cannot be blocked by centralized entities. Key: Decentralization
+- Establish Trustless Network: Integrate Self Protocol to ensure the trusted contact list is cryptographically Sybil-resistant and composed of verified, unique individuals.Feminist / Public GoodsDemonstrate Cross-Chain. Key: Confidentiality
 - Successfully use Oasis Sapphire to execute the confidential logic, proving that ZK-verification on one chain (Celo/Aztec) can securely trigger a data release on another chain (Oasis).ETHGlobal / Technical Excellence
 
 SisterSafe is not just feel secure. It’s a right to be free without fear.
@@ -38,7 +38,9 @@ a. Social Impact
 The primary social impact of SisterSafe is the dismantling of the historical compromise between privacy and safety. It provides a technology that is non-invasive, accessible, and designed for real-world crisis intervention.
 
 ** Empowerment and Autonomy: It shifts control of sensitive location data from centralized, for-profit corporations back to the individual. The user is the sole authority over when their location is disclosed and to whom.
+
 ** Safety Net Integrity: By leveraging Self Protocol, the system ensures the safety network is composed of verified, unique humans (anti-Sybil attack). This guarantees the integrity of the crucial network needed for crisis response.
+
 ** Global Accessibility: Building on Celo L2 ensures that the system is cheap and mobile-first, making this life-saving technology economically viable for women in low-income or underbanked regions where data vulnerability is often highest.
 
 b. Technical Innovation
