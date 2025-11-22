@@ -391,17 +391,6 @@ export default function HomePage() {
               <p className="text-sm text-muted-foreground">
                 Connect your wallet to start using sisterSafe.
               </p>
-              <Button
-                variant="pill"
-                size="pill"
-                onClick={() => {
-                  connect({ connector: connectors[0] });
-                }}
-                disabled={isPending || connectors.length === 0}
-                className="w-full sm:w-auto"
-              >
-                {isPending ? 'Connecting...' : 'Connect wallet'}
-              </Button>
             </div>
           )}
         </section>
@@ -453,6 +442,12 @@ export default function HomePage() {
                   <span className="font-semibold text-foreground">Lon:</span>{' '}
                   {state.coords.lon.toFixed(5)}
                 </p>
+                {geohash5 && (
+                  <p>
+                    <span className="font-semibold text-foreground">Geohash:</span>{' '}
+                    {geohash5}
+                  </p>
+                )}
               </div>
             </div>
           )}

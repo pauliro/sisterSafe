@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, ExternalLink } from "lucide-react"
-import { useAccount, useConnect, useDisconnect } from "wagmi"
+import { Menu, ExternalLink, CheckCircle2 } from "lucide-react"
+import { useAccount, useConnect, useDisconnect, useChainId, useReadContract } from "wagmi"
 
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/logo"
@@ -13,6 +13,8 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { SISTER_SAFE_CONTRACT_ADDRESS, SISTER_SAFE_ABI } from "@/contracts/sisterSafeConfig"
+import { celoSepolia } from "@/lib/wagmi"
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -26,6 +28,20 @@ export function Navbar() {
   const { address, isConnected } = useAccount()
   const { connect, connectors, isPending } = useConnect()
   const { disconnect } = useDisconnect()
+  const chainId = useChainId()
+
+  // Read verification status
+  const { data: isVerifiedData } = useReadContract({
+    address: SISTER_SAFE_CONTRACT_ADDRESS,
+    abi: SISTER_SAFE_ABI,
+    functionName: 'isVerified',
+    args: address ? [address] : undefined,
+    query: {
+      enabled: !!address && isConnected,
+    },
+  })
+  
+  const isVerified = Boolean(isVerifiedData)
 
   useEffect(() => {
     setIsMounted(true)
@@ -61,7 +77,7 @@ export function Navbar() {
                 </span>
               </div>
               <nav className="flex flex-col gap-4">
-                {navLinks.map((link) => (
+                {navLinks.filter(link => link.name !== "Docs").map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
@@ -75,6 +91,61 @@ export function Navbar() {
                   </Link>
                 ))}
               </nav>
+              
+              {/* Mobile: Wallet info when connected */}
+              {isMounted && isConnected && (
+                <div className="mt-8 pt-8 border-t border-border space-y-4">
+                  {/* Celo Network Indicator */}
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="text-green-600">●</span>
+                    <span className="text-muted-foreground font-medium">
+                      {Number(chainId) === celoSepolia.id ? 'Celo' : `Chain ${chainId}`}
+                    </span>
+                  </div>
+
+                  {/* Verify Status */}
+                  <div className="flex items-center gap-2">
+                    {isVerified ? (
+                      <div className="flex items-center gap-1.5 text-sm text-primary">
+                        <CheckCircle2 className="h-4 w-4" />
+                        <span className="font-medium">Verify</span>
+                      </div>
+                    ) : (
+                      <span className="text-sm text-muted-foreground">Not verified</span>
+                    )}
+                  </div>
+
+                  {/* Address and Disconnect */}
+                  <div className="space-y-2">
+                    <div className="text-sm text-muted-foreground font-medium break-all">
+                      {address}
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={handleDisconnect}
+                      className="w-full"
+                    >
+                      Disconnect
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              {/* Mobile: Connect wallet button when not connected */}
+              {isMounted && !isConnected && (
+                <div className="mt-8 pt-8 border-t border-border">
+                  <Button 
+                    variant="pill" 
+                    size="pill"
+                    onClick={handleConnectWallet}
+                    disabled={isPending || connectors.length === 0}
+                    className="w-full"
+                  >
+                    {isPending ? "Connecting..." : "Connect wallet"}
+                  </Button>
+                </div>
+              )}
             </SheetContent>
           </Sheet>
         </div>
@@ -87,17 +158,40 @@ export function Navbar() {
         {/* Desktop: Connect wallet button - right */}
         <div className="hidden md:flex items-center gap-4">
           {isMounted && isConnected ? (
-            <div className="flex items-center gap-3">
-              <span className="text-sm text-muted-foreground font-medium">
-                {address?.slice(0, 6)}...{address?.slice(-4)}
-              </span>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={handleDisconnect}
-              >
-                Disconnect
-              </Button>
+            <div className="flex items-center gap-4">
+              {/* Celo Network Indicator */}
+              <div className="flex items-center gap-2 text-sm">
+                <span className="text-green-600">●</span>
+                <span className="text-muted-foreground font-medium">
+                  {Number(chainId) === celoSepolia.id ? 'Celo' : `Chain ${chainId}`}
+                </span>
+              </div>
+
+              {/* Verify Status */}
+              <div className="flex items-center gap-2">
+                {isVerified ? (
+                  <div className="flex items-center gap-1.5 text-sm text-primary">
+                    <CheckCircle2 className="h-4 w-4" />
+                    <span className="font-medium">Verify</span>
+                  </div>
+                ) : (
+                  <span className="text-sm text-muted-foreground">Not verified</span>
+                )}
+              </div>
+
+              {/* Address and Disconnect */}
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-muted-foreground font-medium">
+                  {address?.slice(0, 6)}...{address?.slice(-4)}
+                </span>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={handleDisconnect}
+                >
+                  Disconnect
+                </Button>
+              </div>
             </div>
           ) : (
             <Button 
