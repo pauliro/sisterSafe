@@ -3,6 +3,25 @@ export const SISTER_SAFE_CONTRACT_ADDRESS =
 
 export const SISTER_SAFE_ABI = [
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "isVerified",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "verifyUser",
     "outputs": [],

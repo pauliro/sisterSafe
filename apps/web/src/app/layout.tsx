@@ -1,11 +1,15 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import './globals.css';
 
 import { Navbar } from '@/components/navbar';
 import AppProviders from './providers'; // ✅ Client-side wagmi provider wrapper
 
-const inter = Inter({ subsets: ['latin'] });
+const poppins = Poppins({ 
+  subsets: ['latin'],
+  weight: ['400', '600'],
+  variable: '--font-poppins',
+});
 
 const appUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
 
@@ -44,7 +48,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={poppins.className}>
         {/* ✅ Wagmi + QueryClient wrapped in a Client Component */}
         <AppProviders>
           <div className="relative flex min-h-screen flex-col">
