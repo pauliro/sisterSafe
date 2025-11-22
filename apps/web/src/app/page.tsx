@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { useAccount, useConnect, useDisconnect, useChainId, useSwitchChain } from 'wagmi';
 import geohash from 'ngeohash';
 import { writeContract } from 'wagmi/actions';
 
@@ -9,7 +9,7 @@ import {
   SISTER_SAFE_CONTRACT_ADDRESS,
   SISTER_SAFE_ABI,
 } from '../contracts/sisterSafeConfig';
-import { wagmiConfig } from '../lib/wagmi';
+import { wagmiConfig, celoSepolia } from '../lib/wagmi';
 
 type Coords = {
   lat: number;
@@ -54,8 +54,8 @@ function useGeolocation() {
       },
       {
         enableHighAccuracy: true,
-        timeout: 10_000,
-        maximumAge: 5_000,
+        timeout: 10000,
+        maximumAge: 5000,
       }
     );
   };
@@ -67,7 +67,6 @@ function useGeolocation() {
   return { state, requestLocation };
 }
 
-// Stub for later on-chain location usage
 async function sendLocationToChain({
   coords,
   geohash5,
@@ -75,7 +74,7 @@ async function sendLocationToChain({
   coords: Coords;
   geohash5: string;
 }) {
-  console.log('⚡ [SisterSafe] Would send to chain:', {
+  console.log('[SisterSafe] Location to send:', {
     lat: coords.lat,
     lon: coords.lon,
     geohash5,
@@ -83,22 +82,39 @@ async function sendLocationToChain({
 }
 
 export default function HomePage() {
+  const [isMounted, setIsMounted] = useState(false);
+
   const { address, isConnected } = useAccount();
   const { state, requestLocation } = useGeolocation();
-
   const { connect, connectors, isPending } = useConnect();
   const { disconnect } = useDisconnect();
+  const chainId = useChainId();
+  const { switchChain } = useSwitchChain();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Force switch to Celo when connected and not on Celo
+  useEffect(() => {
+    if (isConnected && chainId !== celoSepolia.id) {
+      switchChain({ chainId: celoSepolia.id });
+    }
+  }, [isConnected, chainId, switchChain]);
+
+  if (!isMounted) {
+    return null;
+  }
 
   let geohash5: string | null = null;
   if (state.status === 'success') {
     geohash5 = geohash.encode(state.coords.lat, state.coords.lon, 5);
   }
 
-  // ✅ FIRST REAL ON-CHAIN ACTION: verifyUser()
   const handleVerify = async () => {
     try {
       if (!isConnected) {
-        alert('❌ Please connect your wallet first.');
+        alert('Please connect your wallet first.');
         return;
       }
 
@@ -108,11 +124,11 @@ export default function HomePage() {
         functionName: 'verifyUser',
       });
 
-      console.log('✅ Verification TX sent:', txHash);
-      alert('✅ Verification transaction sent!');
+      console.log('Verification transaction sent:', txHash);
+      alert('Verification transaction sent.');
     } catch (error: any) {
-      console.error('❌ Error verifying user:', error);
-      alert('❌ Verification failed. Check console for details.');
+      console.error('Error verifying user:', error);
+      alert('Verification failed. Check console for details.');
     }
   };
 
@@ -132,12 +148,10 @@ export default function HomePage() {
       <header style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         <h1 style={{ fontSize: '1.6rem', margin: 0 }}>SisterSafe (MiniApp)</h1>
         <p style={{ opacity: 0.8, margin: 0 }}>
-          Verified women&apos;s safety crews with privacy-friendly location on
-          Celo.
+          Privacy-friendly location and verification on Celo.
         </p>
       </header>
 
-      {/* Wallet section */}
       <section
         style={{
           padding: '12px 14px',
@@ -165,8 +179,10 @@ export default function HomePage() {
             >
               {address}
             </p>
+            <p style={{ fontSize: '0.85rem', marginTop: 8, marginBottom: 0, opacity: 0.7 }}>
+              Network: {chainId === celoSepolia.id ? 'Celo Sepolia ✓' : `Chain ${chainId} (switching to Celo...)`}
+            </p>
 
-            {/* ✅ VERIFY ME BUTTON */}
             <button
               onClick={handleVerify}
               style={{
@@ -181,10 +197,9 @@ export default function HomePage() {
                 cursor: 'pointer',
               }}
             >
-              ✅ Verify Me
+              Verify Me
             </button>
 
-            {/* Optional disconnect */}
             <button
               onClick={() => disconnect()}
               style={{
@@ -207,7 +222,9 @@ export default function HomePage() {
               No wallet connected.
             </p>
             <button
-              onClick={() => connect({ connector: connectors[0] })}
+              onClick={() => {
+                connect({ connector: connectors[0] });
+              }}
               style={{
                 marginTop: 10,
                 padding: '10px 14px',
@@ -221,13 +238,12 @@ export default function HomePage() {
               }}
               disabled={isPending || connectors.length === 0}
             >
-              {isPending ? 'Connecting…' : '🔌 Connect Wallet'}
+              Connect Wallet
             </button>
           </>
         )}
       </section>
 
-      {/* Geolocation section */}
       <section
         style={{
           padding: '12px 14px',
@@ -245,7 +261,7 @@ export default function HomePage() {
 
         {state.status === 'idle' && (
           <p style={{ fontSize: '0.9rem', opacity: 0.8 }}>
-            Tap “Refresh location” to request your position.
+            Tap "Refresh location" to request your position.
           </p>
         )}
 
@@ -332,7 +348,7 @@ export default function HomePage() {
                 : 'not-allowed',
           }}
         >
-          Send privacy-friendly location (stub)
+          Send location (stub)
         </button>
 
         <p
@@ -343,9 +359,7 @@ export default function HomePage() {
             opacity: 0.6,
           }}
         >
-          We convert your GPS into a coarse geohash (5 characters) before
-          sending anything on-chain. For now this button only logs – next,
-          we&apos;ll wire it to Celo / Oasis.
+          GPS coordinates are converted into a coarse geohash before being used. This call does not yet write on-chain.
         </p>
       </section>
     </main>

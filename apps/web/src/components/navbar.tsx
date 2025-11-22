@@ -19,7 +19,7 @@ const navLinks = [
 
 export function Navbar() {
   const pathname = usePathname()
-  
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center justify-between px-4">
@@ -46,9 +46,8 @@ export function Navbar() {
                     href={link.href}
                     target={link.external ? "_blank" : undefined}
                     rel={link.external ? "noopener noreferrer" : undefined}
-                    className={`flex items-center gap-2 text-base font-medium transition-colors hover:text-primary ${
-                      pathname === link.href ? "text-foreground" : "text-foreground/70"
-                    }`}
+                    className={`flex items-center gap-2 text-base font-medium transition-colors hover:text-primary ${pathname === link.href ? "text-foreground" : "text-foreground/70"
+                      }`}
                   >
                     {link.name}
                     {link.external && <ExternalLink className="h-4 w-4" />}
@@ -69,7 +68,7 @@ export function Navbar() {
             </span>
           </Link>
         </div>
-        
+
         {/* Desktop navigation */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
@@ -78,20 +77,15 @@ export function Navbar() {
               href={link.href}
               target={link.external ? "_blank" : undefined}
               rel={link.external ? "noopener noreferrer" : undefined}
-              className={`flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-primary ${
-                pathname === link.href
+              className={`flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-primary ${pathname === link.href
                   ? "text-foreground"
                   : "text-foreground/70"
-              }`}
+                }`}
             >
               {link.name}
               {link.external && <ExternalLink className="h-4 w-4" />}
             </Link>
           ))}
-          
-          <div className="flex items-center gap-3">
-            <Button variant="outline" size="sm">Connect Wallet</Button>
-          </div>
         </nav>
       </div>
     </header>
