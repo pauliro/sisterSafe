@@ -14,10 +14,10 @@ export const celoSepolia = {
     },
     rpcUrls: {
         default: {
-            http: ['https://forno.sepolia.celo-testnet.org'],
+            http: ['https://rpc.ankr.com/celo_sepolia'],
         },
         public: {
-            http: ['https://forno.sepolia.celo-testnet.org'],
+            http: ['https://rpc.ankr.com/celo_sepolia'],
         },
     },
     blockExplorers: {
