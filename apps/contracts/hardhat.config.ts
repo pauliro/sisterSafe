@@ -12,7 +12,7 @@ const config: HardhatUserConfig = {
   solidity: "0.8.20",
   networks: {
     celocenpolia: {
-      url: "https://forno.celo-sepolia.celo-testnet.org",
+      url: "https://rpc.ankr.com/celo_sepolia",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
     },
   },
