@@ -39,7 +39,7 @@ SisterSafe removes trust assumptions with a triple-layered approach:
 - Key is released _only if_ the zk-proof (π) is valid, enforced by verified Celo L2 state.
 
 ### 3. **Private, Sybil-resistant Social Graph**
-- Self Protocol and Aztec ensure trusted contacts are real, unique humans—without revealing personal ID or linking wallet addresses on-chain.
+- Self Protocol ensure trusted contacts are real, unique humans—without revealing personal ID or linking wallet addresses on-chain.
 
 ---
 
