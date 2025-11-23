@@ -28,6 +28,9 @@
   },
   "dependencies": {
     "@base-org/account": "^2.5.0",
+    "@selfxyz/core": "1.1.0-beta.7",
+    "@selfxyz/qrcode": "^1.0.17",
+    "ethers": "^6.15.0",
     "ngeohash": "^0.6.3"
   },
   "pnpm": {

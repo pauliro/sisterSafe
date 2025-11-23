@@ -23,12 +23,40 @@ type VerificationRequest = {
   did?: string;
   address?: string;
   proof?: unknown;
+  verificationResult?: Record<string, unknown>;
+  user?: { did?: string };
+  userDid?: string;
 };
+
+function extractDid(payload: VerificationRequest): string | undefined {
+  if (payload.did) {
+    return payload.did;
+  }
+  if (payload.userDid) {
+    return payload.userDid;
+  }
+  if (payload.user?.did) {
+    return payload.user.did;
+  }
+  const result = payload.verificationResult ?? payload.proof;
+  if (result && typeof result === 'object') {
+    const maybeDid = (result as Record<string, unknown>).did;
+    if (typeof maybeDid === 'string') {
+      return maybeDid;
+    }
+    const user = (result as Record<string, unknown>).user as Record<string, unknown> | undefined;
+    if (user && typeof user.did === 'string') {
+      return user.did as string;
+    }
+  }
+  return undefined;
+}
 
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as VerificationRequest;
-    const { did, address } = body;
+    const did = extractDid(body);
+    const { address } = body;
 
     if (!did) {
       return NextResponse.json(

@@ -14,6 +14,7 @@ import {
 import { wagmiConfig, celoSepolia } from '../lib/wagmi';
 
 import SelfLoginButton from '@/components/ui/SelfLoginButton';
+import SelfQrVerification from '@/components/ui/SelfQrVerification';
 
 // Type assertion for MetaMask
 const getEthereum = () => {
@@ -325,6 +326,7 @@ export default function HomePage() {
           userAddress={address ?? null}
           onVerificationComplete={(payload) => setIdentityProof(payload)}
         />
+        <SelfQrVerification onVerificationComplete={() => setIdentityProof({ did: 'self-qr' })} />
         {/* Header principal */}
         <header className="space-y-3 text-center md:text-left">
           <p className="text-base md:text-lg text-muted-foreground">
