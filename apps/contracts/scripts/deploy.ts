@@ -1,16 +1,27 @@
 import { ethers } from "hardhat";
 
 async function main() {
-    const SisterSafeCircle = await ethers.getContractFactory("SisterSafeCircle");
-    // @ts-expect-error - TypeChain generated factory deploy signature doesn't match actual contract
-    const sisterSafe = await SisterSafeCircle.deploy();
+  const [deployer] = await ethers.getSigners();
 
-    await sisterSafe.waitForDeployment();
+  console.log("Network:", (await deployer.provider!.getNetwork()).name);
+  console.log("Deployer address:", await deployer.getAddress());
 
-    console.log("✅ SisterSafeCircle deployed to:", await sisterSafe.getAddress());
+  const balance = await deployer.provider!.getBalance(await deployer.getAddress());
+  console.log("Deployer balance (wei):", balance.toString());
+
+  // Replace MyContract with your contract name
+  const SisterSafeCircle = await ethers.getContractFactory("SisterSafeCircle");
+
+  console.log("Deploying contract...");
+  const sisterSafeCircle = await SisterSafeCircle.deploy();
+
+  await sisterSafeCircle.waitForDeployment();
+  const address = await sisterSafeCircle.getAddress();
+
+  console.log("✅ Contract deployed to:", address);
 }
 
 main().catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
+  console.error("❌ Deployment failed:", error);
+  process.exitCode = 1;
 });

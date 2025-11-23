@@ -6,9 +6,9 @@ import { farcasterMiniApp } from '@farcaster/miniapp-wagmi-connector';
 
 // Custom Celo-Sepolia chain (Cenpolia)
 export const celo = {
-    id: 11142220, // Celo Sepolia Testnet chain ID (0xaa044c)
-    name: 'Celo Sepolia',
-    network: 'celo-sepolia',
+    id: 42220, // Celo Sepolia Testnet chain ID (0xaa044c)
+    name: 'Celo Mainnet',
+    network: 'celo-mainnet',
     nativeCurrency: {
         name: 'CELO',
         symbol: 'CELO',
