@@ -1,25 +1,34 @@
 # SisterSafe
 
-**Radical Digital Autonomy for Personal Safety**  
+**A Privacy-Preserving Location Safety Miniapp for Women**  
 _Feminist & Cypherpunk: Maximum Privacy + Self-Sovereignty_
 
+Demo: https://www.loom.com/share/058366b949c34e5687c56976d251afec
+Web deployed: https://sistersafe.netlify.app/
 ---
 
 ## 🚩 Core Tech Stack
 
 - **Zero-Knowledge Proofs:** zk-SNARKs, zk-PoL
-- **Blockchain:** Celo L2
-- **Identity:** Self Protocol (ZK-based)
-- **Confidential Compute:** Self Protocol
+- **Blockchain:** Celo L2 (alert verification)
+- **Identity:** Self Protocol (ZK Proof-of-Personhood)
+- **Secure Key Release:** Celo Miniapp logic (encrypted location key shared only with verified contacts)
+
+### **Technical Highlights**
+- **zk-PoL for geo-verification** without revealing GPS
+- **Confidential compute** Self for safe, programmatic key management
+- **Private alerts** Self for on-chain privacy
 
 ---
 
 ## 💥 Problem Landscape
 
-Traditional safety apps force users to share raw location with centralized servers—sacrificing privacy for "protection".  
-This exposes sensitive data and creates exploitable points of failure.
+For women around the world, moving through public spaces—especially alone—comes with a constant calculation of risk. Traditional “safety apps” claim to help, but they require users to hand over their raw GPS location to centralized companies. In practice, this means exchanging personal safety for surveillance, and trusting corporations with extremely sensitive data that can be leaked, abused, or weaponized.
+
+This is not a theoretical risk. Real incidents have shown how exposed women are:
 
 **Real-World Flaws:**
+- **Lack of Real Security in Emergencies:** When women disappear, there is often no verifiable trail, no proof something happened, and no urgent response from authorities.
 - **Privacy vs Safety Trade-off:** Raw GPS required for help, but shared to third parties and vulnerable.
 - **Censorship & Trust Risks:** Centralized alerts can be blocked, delayed, or manipulated.
 - **Sybil/Identity Attacks:** Fake accounts can infiltrate “trusted” safety circles.
@@ -34,39 +43,34 @@ SisterSafe removes trust assumptions with a triple-layered approach:
 - User generates a zk-proof (π) of being “outside safe zone” or having triggered a panic alert.
 - **No raw GPS is ever revealed** to anyone—even in emergencies.
 
-### 2. **Confidential Key Release**
-- Decryption key (KS) for actual location is stored in an Oasis Confidential Smart Contract.
-- Key is released _only if_ the zk-proof (π) is valid, enforced by verified Celo L2 state.
+### 2. **Confidential Key Release (Celo Miniapp)**
+- A location key is released only if the zk-proof is validated on Celo.
+Contacts receive the encrypted location only during a confirmed emergency.
 
-### 3. **Private, Sybil-resistant Social Graph**
-- Self Protocol ensure trusted contacts are real, unique humans—without revealing personal ID or linking wallet addresses on-chain.
-
+### 3. **Sybil-Resistant Trusted Contacts (Self Protocol)**
+- Self Protocol ensures that all guardians are verified as real, unique human women—without KYC, without exposing personal identity, and without linking wallet addresses on-chain.
 ---
 
 ## 🎯 Project Objectives
 
-- **Maximize Privacy:** Zero disclosure of location data until ZK-verified.
-- **Censorship-Resistance:** Alert signal can't be blocked (L2 on-chain verification).
-- **Trustless Safety Net:** All contacts cryptographically verified (no fake accounts).
-- **Cross-chain Confidentiality:** ZK-verification on Celo/Self triggers key release on Celo
+- **Maximize Privacy:** Location stays encrypted until ZK-verified
+- **Censorship-Resistance:** All alerts verified on Celo. Alert signal can't be blocked (L2 on-chain verification).
+- **Trustless Safety Net:** All contacts cryptographically verified (no fake accounts, no bots).
+- **Cross-chain Confidentiality:** ZK-verification on Celo/Self triggers key release on Celo.
+- **Mobile-First:** Optimized for women in high-risk environments worldwide
 
 ---
 
 ## 🌍 Human & Technical Impact
 
 ### **Empowerment and Autonomy**
-- Shifts control of location data back to the individual.
+- Users control when and how their location data is shared—never a third party.
 
 ### **Safety Net Integrity**
-- Guarantees trusted network with unique, verified contacts.
+- Only trusted, verified human women can access alerts, ensuring a reliable safety network.
 
 ### **Global Accessibility**
-- Designed for low-cost, mobile-first use (Celo L2), targeting high-need, underbanked populations.
-
-### **Technical Highlights**
-- **zk-PoL for geo-verification** without revealing GPS
-- **Confidential compute** Self for safe, programmatic key management
-- **Private alerts** Self for on-chain privacy
+- Lightweight, low-cost, mobile-first design on Celo L2 enables use in underbanked and high-risk regions.
 
 ---
 
@@ -74,6 +78,7 @@ SisterSafe removes trust assumptions with a triple-layered approach:
 
 > _Privacy as Power. Autonomy as Safety._  
 > – Cypherpunk & Feminist Principles
+> Inspired by feminist and cypherpunk values: safety enforced by cryptography, not surveillance.
 
 - **Code is Law:** All safety logic enforced by ZK circuits and smart contracts.
 - **Data Sovereignty:** Users own their graph, their data, and their choices.
@@ -83,49 +88,49 @@ SisterSafe removes trust assumptions with a triple-layered approach:
 
 ## 🚀 Roadmap & Future Features
 
-We have an ambitious vision for SisterSafe, focusing on continuous innovation in privacy, security, and user experience.
+We’re focused on delivering a privacy-first safety tool that scales from an MVP to a global protocol.
 
-**Phase 1: MVP - The Shielded Compass (Hackathon Deliverable)**
+**Phase 1: Hackathon MVP - (Delivered)**
 
-Core ZK-Verified Panic Alert on Celo.
+- ZK-verified panic alert on Celo.
 
-Self Protocol for Sybil-resistant trusted contacts.
+- Self Protocol verification for real, unique women guardians.
 
-Basic mobile app UX for Prover and Recipient.
+- Lightweight mobile-first UI for sending and receiving alerts.
 
-**Phase 2: Enhanced Guardianship & Proactive Safety**
+**Phase 2: Proactive Safety Toolsy**
 
-Dynamic Safe Zones & Alerts: Multiple configurable safe zones, with non-emergency 'leaving zone' notifications.
+- Configurable Safe Zones with non-emergency “leaving zone” alerts.
 
-ZK-Verified Geo-Check-Ins: Users can prove they are at a location without revealing where.
+- ZK-verified check-ins without exposing the user’s location.
 
-Group Guardian Management: Define different groups of guardians with tailored alert settings.
+- Guardian groups with custom alert rules.
 
-**Phase 3: Community & Autonomous Safety**
+**Phase 3: Community Layer**
 
-Decentralized Reputation for Guardians: On-chain, ZK-backed reputation for reliable guardians.
+- ZK-backed reputation system for reliable guardians.
 
-Anonymous Data for Public Safety: ZK-aggregated data on alert frequencies for urban planning, without revealing individual locations.
+- Optional, privacy-preserving aggregated safety insights.
 
-Community Safety Circles: Opt-in local networks of verified SisterSafe users for broader support.
+- Local Support Circles: opt-in networks of verified women.
 
-**Phase 4: Self-Sustaining & Interoperable Safety** 
+**Phase 4: Protocol Evolution** 
 
-SisterSafe DAO (on Celo): Community governance for protocol upgrades and funding.
+- Governance through a future SisterSafe DAO on Celo.
 
-Celo-Native Interoperability: Explore cross-chain ZK bridges for alerts to guardians on other chains.
+- Cross-chain ZK interoperability to reach guardians on other networks.
 
-Integration with Public Safety: Opt-in, ZK-verified alerts to local emergency services.
+- Optional integration with public safety agencies, preserving user privacy.
 
 ---
 
 ## 🧑‍💻 Team
 
-- Dayana
-- Cristina
-- Sonia
-- Paula
-- Rocio
+- Dayana Farcaster: @Aydamacink.farcaster.eth
+- Cristina Farcaster: @tesitoweb3
+- Sonia Farcaster: @douxxiie
+- Paula Farcaster: @pcorbo.farcaster.eth
+- Rocio Farcaster:@rociogonzalezt
 
 --
 
