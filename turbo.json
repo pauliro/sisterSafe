@@ -1,28 +1,61 @@
 {
   "$schema": "https://turbo.build/schema.json",
+
+  // Allow env files globally
   "globalDependencies": ["**/.env.*local"],
+
   "pipeline": {
+    // ----------------------
+    // NEXT.JS BUILD (apps/web)
+    // ----------------------
     "build": {
+      // For web build, depend on all package builds
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      // Restrict outputs **only** to Next.js app folder
+      "outputs": [
+        "apps/web/.next/**",
+        "!apps/web/.next/cache/**",
+        "apps/web/dist/**"
+      ]
     },
+
+    // Dev server should never be cached
     "dev": {
       "cache": false,
       "persistent": true
     },
+
+    // ----------------------
+    // TYPE CHECK
+    // ----------------------
     "type-check": {
       "dependsOn": ["^type-check"]
     },
+
     "clean": {
       "cache": false
     },
+
+    // ----------------------
+    // CONTRACT COMPILATION
+    // Works with Hardhat / Foundry
+    // ----------------------
     "compile": {
       "dependsOn": ["^compile"],
-      "outputs": ["artifacts/**", "cache/**", "typechain-types/**"]
+      "outputs": [
+        "contracts/artifacts/**",
+        "contracts/cache/**",
+        "contracts/typechain-types/**"
+      ]
     },
+
+    // ----------------------
+    // TEST + DEPLOY
+    // ----------------------
     "test": {
       "dependsOn": ["compile"]
     },
+
     "deploy": {
       "dependsOn": ["compile"]
     },
