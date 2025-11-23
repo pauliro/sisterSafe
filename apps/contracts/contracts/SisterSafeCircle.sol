@@ -1,7 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+interface ISelfRegistry {
+    function isVerified(address user) external view returns (bool);
+}
+
 contract SisterSafeCircle {
+    ISelfRegistry public immutable selfRegistry;
     mapping(address => bool) public isVerified;
     mapping(bytes32 => address[]) public circleMembers;
     mapping(address => bool) public hasJoined;
@@ -10,9 +15,17 @@ contract SisterSafeCircle {
     event CircleCreated(bytes32 indexed circleId, address indexed creator);
     event JoinedCircle(bytes32 indexed circleId, address indexed user);
 
-    // TEMP: placeholder until Self integration
+    constructor(address registry) {
+        selfRegistry = ISelfRegistry(registry);
+    }
+
     function verifyUser() external {
-        isVerified[msg.sender] = true;
+        address caller = msg.sender;
+        if (address(selfRegistry) != address(0)) {
+            require(selfRegistry.isVerified(caller), "Self verification required");
+        }
+        require(!isVerified[caller], "Already verified");
+        isVerified[caller] = true;
         emit UserVerified(msg.sender);
     }
 

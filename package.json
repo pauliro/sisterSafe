@@ -27,6 +27,12 @@
     "pnpm": ">=8.0.0"
   },
   "dependencies": {
+    "@base-org/account": "^2.5.0",
     "ngeohash": "^0.6.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "@base-org/account": "2.5.0"
+    }
   }
 }

@@ -12,6 +12,7 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\""
   },
   "dependencies": {
+    "@self.id/web": "^0.5.0",
     "@farcaster/frame-core": "latest",
     "@farcaster/frame-sdk": "^0.0.61",
     "@farcaster/miniapp-wagmi-connector": "latest",

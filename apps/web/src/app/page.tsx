@@ -13,6 +13,8 @@ import {
 } from '../contracts/sisterSafeConfig';
 import { wagmiConfig, celoSepolia } from '../lib/wagmi';
 
+import SelfLoginButton from '@/components/ui/SelfLoginButton';
+
 // Type assertion for MetaMask
 const getEthereum = () => {
   if (typeof window !== 'undefined' && window.ethereum) {
@@ -92,10 +94,13 @@ async function sendLocationToChain({
 }
 
 export default function HomePage() {
+
+  
   const [isMounted, setIsMounted] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const [sendingLocation, setSendingLocation] = useState(false);
   const [verifyTxHash, setVerifyTxHash] = useState<`0x${string}` | null>(null);
+  const [identityProof, setIdentityProof] = useState<{ did: string } | null>(null);
 
   const { address, isConnected } = useAccount();
   const { state, requestLocation } = useGeolocation();
@@ -276,6 +281,10 @@ export default function HomePage() {
       if (!isConnected) {
         return;
       }
+      if (!identityProof) {
+        alert('Complete the Self identity step first.');
+        return;
+      }
 
       setVerifying(true);
       const txHash = await writeContract(wagmiConfig, {
@@ -312,6 +321,10 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-background px-4 py-8 md:px-8 md:py-12">
       <div className="container mx-auto max-w-2xl space-y-6">
+        <SelfLoginButton
+          userAddress={address ?? null}
+          onVerificationComplete={(payload) => setIdentityProof(payload)}
+        />
         {/* Header principal */}
         <header className="space-y-3 text-center md:text-left">
           <p className="text-base md:text-lg text-muted-foreground">
@@ -349,6 +362,23 @@ export default function HomePage() {
                 </span>
               </div>
 
+              <div
+                className={`rounded-lg p-3 text-sm ${
+                  identityProof
+                    ? 'bg-emerald-500/10 text-emerald-500'
+                    : 'bg-amber-500/10 text-amber-500'
+                }`}
+              >
+                {identityProof ? (
+                  <>
+                    <strong>Self DID ready:</strong>{' '}
+                    <span className="font-mono">{identityProof.did}</span>
+                  </>
+                ) : (
+                  'Complete Self login above to unlock on-chain verification.'
+                )}
+              </div>
+
               {/* Verification Status */}
               {isVerified && (
                 <div className="flex items-center gap-2 text-sm text-primary bg-primary/10 rounded-lg p-3">
@@ -363,7 +393,7 @@ export default function HomePage() {
                     variant="pill"
                     size="pill"
                     onClick={handleVerify}
-                    disabled={verifying || isVerifyingTx}
+                    disabled={verifying || isVerifyingTx || !identityProof}
                     className="flex-1 sm:flex-none"
                   >
                     {verifying || isVerifyingTx ? (
