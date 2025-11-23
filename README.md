@@ -10,7 +10,7 @@ _Feminist & Cypherpunk: Maximum Privacy + Self-Sovereignty_
 - **Zero-Knowledge Proofs:** zk-SNARKs, zk-PoL
 - **Blockchain:** Celo L2
 - **Identity:** Self Protocol (ZK-based)
-- **Confidential Compute:** Oasis Sapphire
+- **Confidential Compute:** Self Protocol
 
 ---
 
@@ -48,7 +48,7 @@ SisterSafe removes trust assumptions with a triple-layered approach:
 - **Maximize Privacy:** Zero disclosure of location data until ZK-verified.
 - **Censorship-Resistance:** Alert signal can't be blocked (L2 on-chain verification).
 - **Trustless Safety Net:** All contacts cryptographically verified (no fake accounts).
-- **Cross-chain Confidentiality:** ZK-verification on Celo/Aztec triggers key release on Oasis Sapphire.
+- **Cross-chain Confidentiality:** ZK-verification on Celo/Self triggers key release on Celo
 
 ---
 
@@ -65,8 +65,8 @@ SisterSafe removes trust assumptions with a triple-layered approach:
 
 ### **Technical Highlights**
 - **zk-PoL for geo-verification** without revealing GPS
-- **Confidential compute** (Oasis) for safe, programmatic key management
-- **Private alerts** (Aztec) for on-chain privacy
+- **Confidential compute** Self for safe, programmatic key management
+- **Private alerts** Self for on-chain privacy
 
 ---
 
