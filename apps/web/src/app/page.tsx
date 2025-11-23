@@ -401,7 +401,7 @@ export default function HomePage() {
             <div className="flex items-center gap-3">
               <CheckCircle2 className="h-5 w-5 text-primary" />
               <p className="text-sm font-medium text-primary">
-                Your friends have been successfully notified
+                Your sisters have been successfully notified
               </p>
             </div>
           </div>
@@ -413,7 +413,7 @@ export default function HomePage() {
           {/* Header principal */}
           <header className="space-y-3 text-center md:text-left">
             <p className="text-base md:text-lg text-muted-foreground">
-              Share your location and status with your friends safely and privately.
+              Share your location and status with your sisters safely and privately.
             </p>
           </header>
 
@@ -490,7 +490,7 @@ export default function HomePage() {
                     ) : (
                       <>
                         <Shield className="h-4 w-4 mr-2" />
-                        Alert my friends
+                        Alert my sisters
                       </>
                     )}
                   </Button>
@@ -513,7 +513,7 @@ export default function HomePage() {
 
             {state.status === 'idle' && (
               <p className="text-sm text-muted-foreground">
-                Tap &apos;Update location&apos; to share your meeting point with your friends.
+                Tap &apos;Update location&apos; to share your meeting point with your sisters.
               </p>
             )}
 
