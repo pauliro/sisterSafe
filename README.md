@@ -39,7 +39,7 @@ SisterSafe removes trust assumptions with a triple-layered approach:
 - Key is released _only if_ the zk-proof (π) is valid, enforced by verified Celo L2 state.
 
 ### 3. **Private, Sybil-resistant Social Graph**
-- Self Protocol and Aztec ensure trusted contacts are real, unique humans—without revealing personal ID or linking wallet addresses on-chain.
+- Self Protocol ensure trusted contacts are real, unique humans—without revealing personal ID or linking wallet addresses on-chain.
 
 ---
 
@@ -81,6 +81,44 @@ SisterSafe removes trust assumptions with a triple-layered approach:
 
 ---
 
+## 🚀 Roadmap & Future Features
+
+We have an ambitious vision for SisterSafe, focusing on continuous innovation in privacy, security, and user experience.
+
+**Phase 1: MVP - The Shielded Compass (Hackathon Deliverable)**
+
+Core ZK-Verified Panic Alert on Celo.
+
+Self Protocol for Sybil-resistant trusted contacts.
+
+Basic mobile app UX for Prover and Recipient.
+
+**Phase 2: Enhanced Guardianship & Proactive Safety**
+
+Dynamic Safe Zones & Alerts: Multiple configurable safe zones, with non-emergency 'leaving zone' notifications.
+
+ZK-Verified Geo-Check-Ins: Users can prove they are at a location without revealing where.
+
+Group Guardian Management: Define different groups of guardians with tailored alert settings.
+
+**Phase 3: Community & Autonomous Safety**
+
+Decentralized Reputation for Guardians: On-chain, ZK-backed reputation for reliable guardians.
+
+Anonymous Data for Public Safety: ZK-aggregated data on alert frequencies for urban planning, without revealing individual locations.
+
+Community Safety Circles: Opt-in local networks of verified SisterSafe users for broader support.
+
+**Phase 4: Self-Sustaining & Interoperable Safety** 
+
+SisterSafe DAO (on Celo): Community governance for protocol upgrades and funding.
+
+Celo-Native Interoperability: Explore cross-chain ZK bridges for alerts to guardians on other chains.
+
+Integration with Public Safety: Opt-in, ZK-verified alerts to local emergency services.
+
+---
+
 ## 🧑‍💻 Team
 
 - Dayana
@@ -88,9 +126,6 @@ SisterSafe removes trust assumptions with a triple-layered approach:
 - Sonia
 - Paula
 - Rocio
-
-
-
 
 # sisterSafe
 
